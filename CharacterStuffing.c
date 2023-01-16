@@ -8,7 +8,7 @@ void stuffCharacters(char msg[], char flag[])
     len = strlen(msg);
     for (int x = 0; x < len; x++)
     {
-        msg[x] = msg[x] - 32;
+        msg[x] = msg[x] - 32; 
     }
     printf("Before Stuffing\n");
     printf("%s\n", msg);
@@ -29,8 +29,9 @@ void stuffCharacters(char msg[], char flag[])
             {
                 if (count == 1)
                 {
-                    printf("%c", msg[i]);
+                    printf("%c", msg[i-1]);
                     j = 0;
+                    count=0;
                 }
             }
             if (count == flaglen)

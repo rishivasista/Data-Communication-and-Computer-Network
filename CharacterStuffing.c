@@ -8,7 +8,11 @@ void stuffCharacters(char msg[], char flag[])
     len = strlen(msg);
     for (int x = 0; x < len; x++)
     {
+        if(msg[x] >= 97 && msg[x]<=122)
         msg[x] = msg[x] - 32; 
+        
+        else
+        continue;
     }
     printf("Before Stuffing\n");
     printf("%s\n", msg);

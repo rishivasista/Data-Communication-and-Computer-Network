@@ -1,86 +1,64 @@
 #include <stdio.h>
 #include <String.h>
 
+void stuffCharacters(char msg[]);
+
 void stuffCharacters(char msg[])
-{ 
-    int i = 0, j, count,testFlag=0, count1, len, x;
-    char flag[4]="DLE";
+{
+    int len, i, j, count;
+    char newMsg[100] = "", *temp = "";
     len = strlen(msg);
-    for (int x = 0; x < len; x++)
+    for (i = 0; i < len; i++)
     {
-        if(msg[x] >= 97 && msg[x]<=122)
-        msg[x] = msg[x] - 32; 
-        
-        else
-        continue;
+        if (msg[i] >= 97 && msg[i] <= 122)
+            msg[i] -= 32;
     }
-    printf("Before Stuffing\n");
-    printf("%s\n", msg);
-    printf("After Stuffing\n");
-    printf("DLESTX");
+    i = 0;
+    j = 6;
+    strcat(newMsg, "DLESTX");
     while (i < len)
     {
-        count = 0;
-        j = 0;
-        count1=0;
-        while (j < 6)
+        if (msg[i] == 'D' && msg[i + 1] == 'L' && msg[i + 2] == 'E')
         {
-            if (msg[i] == flag[j++])
+            if (msg[i + 4] == 'T' && msg[i + 5] == 'X')
             {
-                i++;
-                count++;
+                if (msg[i + 3] == 'S')
+                {
+                    strcat(newMsg, "DLESTXDLESTX");
+                    i += 6;
+                    j = i + 12;
+                }
+                else if (msg[i + 3] == 'E')
+                {
+                    strcat(newMsg, "DLEETXDLEETX");
+                    i += 6;
+                    j = i + 12;
+                }
             }
+
             else
             {
-                if (count == 1)
-                {
-                    printf("%c", msg[i-1]);
-                    j = 0;
-                    count=0;
-                }
-            }
-            if (count == 3)
-            {
-                if(msg[i+1] == 'S' || msg[i+1] == 'E'){
-                    if(msg[i+1] == 'S'){
-                        testFlag = 1;
-                    }
-                    for(x = i+1; x<6; x++){
-                        if(msg[x] == flag[x]){
-                            count1++;
-                        }
-                    }
-                    if(count1 == 3){
-                        if(!testFlag){
-                            // i+=3;
-                            // testFlag = 0;
-                            printf("DLEETXDLEETX");
-                            break;
-                        }
-                        else{
-                            // i+=3;
-                            printf("DLESTXDLESTX");
-                            break;
-                        }
-                    }
-                }
-                if(msg[i+1] != 'S' && msg[i+1] !='E'){
-                printf("DLEDLE");
-                break;
-                }
+                strcat(newMsg, "DLEDLE");
+                i += 3;
+                j = i + 15;
             }
         }
-        printf("%c", msg[i++]);
+        else
+        {
+            newMsg[j] = msg[i];
+            i++;
+            j++;
+        }
     }
-    printf("DLEETX");
+    strcat(newMsg, "DLEETX");
+    printf("Original Message : %s\n", msg);
+    printf("After Stuffing : %s\n", newMsg);
 }
 
-void main()
+int main()
 {
-    char msg[50], flag[4] = "DLE";
-    int i = 0, j, count, len;
-
-    printf("Enter frame:\n");
+    char msg[100];
+    printf("Enter a message\n");
     scanf("%s", msg);
     stuffCharacters(msg);
 }

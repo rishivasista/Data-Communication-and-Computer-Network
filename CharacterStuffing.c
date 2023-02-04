@@ -6,7 +6,7 @@ void stuffCharacters(char msg[]);
 void stuffCharacters(char msg[])
 {
     int len, i, j, count;
-    char newMsg[100] = "", *temp = "";
+    char newMsg[100] = "";
     len = strlen(msg);
     for (i = 0; i < len; i++)
     {
@@ -40,7 +40,7 @@ void stuffCharacters(char msg[])
             {
                 strcat(newMsg, "DLEDLE");
                 i += 3;
-                j = i + 15;
+                j = i + 9;
             }
         }
         else

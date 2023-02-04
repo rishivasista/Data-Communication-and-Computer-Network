@@ -1,48 +1,72 @@
-#include<stdio.h>
-#include<String.h>
+#include <stdio.h>
+#include <String.h>
 
-char* insertCharacter(char msg[], char ch, int index){
-    char temp[100];
-    char *newMsg;
-    strncpy(temp, msg, index);
-    temp[index] = ch;
-    temp[index+1] = '\0';
-    strcat(temp, msg + (index+1));
-    newMsg = temp;
-    return newMsg;
-}
-
-
-void stuffBits(char msg[]){
-    char flag[6] = "11111", stuffedBits[100], *temp;
-    int i, j, len, count;
+char* stuffBits(char msg[])
+{
+    char newMsg[100] = "", flag0[6] = "00000", flag1[6] = "11111", *temp;
+    int i, j, k, x, count0, count1, len;
     len = strlen(msg);
-    for(i=0; i<len; i++){
-        count = 0;
+    i = 0;
+    x = 5;
+    strcat(newMsg, "00000");
+    while (i < len)
+    {
         j = 0;
-        while(j < 5){
-            if(msg[i] == flag[j++]){
+        count0 = 0;
+        count1 = 0;
+        k = 0;
+        while (j < 6)
+        {
+            newMsg[x++] = msg[i];
+            if (msg[i] == flag0[j] || msg[i] == flag1[k])
+            {
+                
+                if (msg[i] == flag0[j])
+                {
+                    j++;
+                    count0++;
+                }
+                else
+                {
+                    k++;
+                    count1++;
+                }
                 i++;
-                count++;
             }
+            else
 
-            
-            if(count == 5){
-                temp = insertCharacter(msg, '0', i-2);
-                strcpy(stuffedBits, "");
-                strcat(stuffedBits, "00000");
-                strcat(stuffedBits, temp);
-                strcat(stuffedBits, "11111");
                 i++;
+
+            if (count0 == 5 || count1 == 5)
+            {
+                if (count0 == 5)
+                {
+                    strcat(newMsg, "1");
+                    x++;
+                }
+                else
+                {
+                    strcat(newMsg, "0");
+                    x++;
+                }
+                break;
+            }
+            else if ((count0 > 1 && msg[i] != flag0[j]) || (count1 > 1 && msg[i] != flag1[k]))
+            {
+                break;
             }
         }
     }
-    printf("%s", stuffedBits);
+    strcat(newMsg, "11111");
+    temp = newMsg;
+    return temp;
 }
 
-void main(){
-    char bits[100], stuffedBit[100];
-    printf("Enter the bits\n");
-    scanf("%s", bits);
-    stuffBits(bits);
+int main()
+{
+    char msg[100], *newMsg;
+    printf("Enter a message\n");
+    scanf("%s", msg);
+    newMsg = stuffBits(msg);
+    printf("%s", newMsg);
 }

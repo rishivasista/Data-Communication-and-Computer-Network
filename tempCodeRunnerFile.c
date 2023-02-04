@@ -1,3 +1,1 @@
-while(j<5){
-
-    //    }
+  newMsg[x] = msg[i];

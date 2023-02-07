@@ -43,11 +43,13 @@ char* stuffBits(char msg[])
                 {
                     strcat(newMsg, "1");
                     x++;
+                    count0=0;
                 }
                 else
                 {
                     strcat(newMsg, "0");
                     x++;
+                    count1=0;
                 }
                 break;
             }

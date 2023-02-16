@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <String.h>
+#include <string.h>
 
-char* stuffBits(char msg[])
+void stuffBits(char msg[])
 {
     char newMsg[100] = "", flag0[6] = "00000", flag1[6] = "11111", *temp;
     int i, j, k, x, count0, count1, len;
@@ -25,17 +25,19 @@ char* stuffBits(char msg[])
                 {
                     j++;
                     count0++;
+                    i++;
                 }
                 else
                 {
                     k++;
                     count1++;
+                    i++;
                 }
-                i++;
+                // i++;
             }
             else
 
-                i++;
+                // i++;
 
             if (count0 == 5 || count1 == 5)
             {
@@ -43,13 +45,13 @@ char* stuffBits(char msg[])
                 {
                     strcat(newMsg, "1");
                     x++;
-                    count0=0;
+                    break;
                 }
                 else
                 {
                     strcat(newMsg, "0");
                     x++;
-                    count1=0;
+                    break;
                 }
                 break;
             }
@@ -60,8 +62,7 @@ char* stuffBits(char msg[])
         }
     }
     strcat(newMsg, "11111");
-    temp = newMsg;
-    return temp;
+    puts(newMsg);
 }
 
 int main()
@@ -69,6 +70,5 @@ int main()
     char msg[100], *newMsg;
     printf("Enter a message\n");
     scanf("%s", msg);
-    newMsg = stuffBits(msg);
-    printf("%s", newMsg);
+    stuffBits(msg);
 }

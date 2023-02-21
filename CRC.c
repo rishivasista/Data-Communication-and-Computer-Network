@@ -1,34 +1,27 @@
 #include<stdio.h>
-#include<string.h>
+#include<math.h>
 
-char* addRedundant(char poly1[], char poly2[]){
-    int i, l2;
-    char *temp;
-    l2 = strlen(poly2);
-    for(i=0; i<l2-1; i++)
-        strcat(poly1, "0");
-    temp = poly1;
-    return temp;
-}
-
-char* CRC(char poly1[], char poly2[]){
-    int i, j, l1, l2;
-    l1 = strlen(poly1);
-    l2 = strlen(poly2);
-    for(i=0;i<l1;i++)
-    {
-        for(j=0;j<l2;j++){
-            
-        }
+unsigned int addRedundant(unsigned int p1, unsigned int p2){
+    unsigned int div = p2, temp;
+    int count=0, i;
+    while(div!=0){
+        div/=10;
+        count++;
     }
+    // Adding redundant zeros to p1 based on the size of p2
+    temp = pow(10, count-1); // Contains value to be multiplied to p1 in order to get redundant zeros
+    p1 *= temp;
+    return p1;
 }
+
+
 
 int main(){
-    char poly1[100], poly2[100], *newMsg;
-    printf("Enter a String of 0s and 1s\n");
-    gets(poly1);
-    printf("Enter another String of 0s and 1s\n");
-    gets(poly2);
-    newMsg = addRedundant(poly1, poly2);
-    puts(newMsg);
+    unsigned int p1, p2;
+    printf("Enter Message\n");
+    scanf("%u", &p1);
+    printf("Enter Divisor\n");
+    scanf("%u",&p2);
+    p1=addRedundant(p1, p2);
+    printf("%u\n", p1);
 }

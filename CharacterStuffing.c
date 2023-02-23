@@ -1,12 +1,10 @@
 #include <stdio.h>
-#include <String.h>
-
-void stuffCharacters(char msg[]);
+#include <string.h>
 
 void stuffCharacters(char msg[])
 {
-    int len, i, j, count;
     char newMsg[100] = "";
+    int count, i, len, x;
     len = strlen(msg);
     for (i = 0; i < len; i++)
     {
@@ -14,51 +12,50 @@ void stuffCharacters(char msg[])
             msg[i] -= 32;
     }
     i = 0;
-    j = 6;
     strcat(newMsg, "DLESTX");
+    x = 6;
     while (i < len)
     {
         if (msg[i] == 'D' && msg[i + 1] == 'L' && msg[i + 2] == 'E')
         {
             if (msg[i + 4] == 'T' && msg[i + 5] == 'X')
             {
-                if (msg[i + 3] == 'S')
-                {
-                    strcat(newMsg, "DLESTXDLESTX");
-                    i += 6;
-                    j = i + 12;
-                }
-                else if (msg[i + 3] == 'E')
+                if (msg[i + 3] == 'E')
                 {
                     strcat(newMsg, "DLEETXDLEETX");
+                    x += 12;
                     i += 6;
-                    j = i + 12;
+                }
+                else
+                {
+                    strcat(newMsg, "DLESTXDLESTX");
+                    x += 12;
+                    i += 6;
                 }
             }
-
             else
             {
                 strcat(newMsg, "DLEDLE");
+                x += 6;
                 i += 3;
-                j = i + 9;
             }
         }
         else
         {
-            newMsg[j] = msg[i];
+            newMsg[x] = msg[i];
+            x++;
             i++;
-            j++;
         }
     }
     strcat(newMsg, "DLEETX");
-    printf("Original Message : %s\n", msg);
+    printf("Before Stuffing : %s\n", msg);
     printf("After Stuffing : %s\n", newMsg);
 }
 
 int main()
 {
     char msg[100];
-    printf("Enter a message\n");
+    printf("Enter your message\n");
     scanf("%s", msg);
     stuffCharacters(msg);
 }

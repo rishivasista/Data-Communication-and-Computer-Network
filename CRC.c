@@ -37,7 +37,7 @@ const char* mod2div(char msg[], char div[], int msglen, int divlen)
         else
         {
             for(i=0;i<divlen-1;i++)
-            rem[i] = xor(temp[i+1], msg[i+1]);
+            rem[i] = xor(temp[i+1], div[i+1]);
         }
         rem[divlen-1] = msg[j];
     }
@@ -54,6 +54,7 @@ const char* CRC(char msg[], char div[])
     rem = mod2div(msg, div, msglen, divlen);
     strcat(msg, rem);
     checksum = msg;
+    printf("Remainder : %s\n", rem);
     return checksum;
 }
 

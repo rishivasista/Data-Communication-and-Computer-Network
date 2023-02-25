@@ -45,6 +45,18 @@ const char* mod2div(char msg[], char div[], int msglen, int divlen)
     return rem;
 }
 
+const char* CRC(char msg[], char div[])
+{
+    char *checksum, *rem;
+    int msglen, divlen, i;
+    msglen = strlen(msg);
+    divlen = strlen(div);
+    rem = mod2div(msg, div, msglen, divlen);
+    strcat(msg, rem);
+    checksum = msg;
+    return checksum;
+}
+
 int main()
 {
     static char msg[50], div[50];

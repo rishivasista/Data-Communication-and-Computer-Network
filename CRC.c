@@ -5,6 +5,14 @@ char xor(char a, char b);
 const char* mod2div(char msg[], char div[], int msglen, int divlen);
 const char* CRC(char msg[], char div[]);
 
+char xor(char a, char b)
+{
+    if(a==b)
+    return '0';
+    else
+    return '1';
+}
+
 int main()
 {
     static char msg[50], div[50];

@@ -39,6 +39,8 @@ const char* mod2div(char msg[], char div[], int msglen, int divlen)
             for(i=0;i<divlen-1;i++)
             rem[i] = xor(temp[i+1], div[i+1]);
         }
+
+        // Add next bit of message to remainder for continuation of division
         rem[divlen-1] = msg[j];
     }
     final_rem = rem;

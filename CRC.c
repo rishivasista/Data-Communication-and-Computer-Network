@@ -13,6 +13,35 @@ char xor(char a, char b)
     return '1';
 }
 
+const char* mod2div(char msg[], char div[], int msglen, int divlen)
+{
+    int i, j;
+    static rem[50], temp[50];
+    for(i=0;i<divlen;i++)
+    rem[i] = msg[i];
+
+    for(j=divlen; j<=msglen;j++)
+    {
+        for(i=0;i<divlen;i++)
+        temp[i] = rem[i];
+
+        // Shift contents of remainder to left by 1 if 1st bit is 0;
+        if(rem[0] == '0')
+        {
+            for(i=0;i<divlen-1;i++)
+            rem[i] = temp[i+1];
+        }
+
+        // Perform XOR operation to remainder if 1st bit is not 0;
+        else
+        {
+            for(i=0;i<divlen-1;i++)
+            rem[i] = xor(temp[i+1], msg[i+1]);
+        }
+        rem[divlen-1] = msg[j];
+    }
+}
+
 int main()
 {
     static char msg[50], div[50];

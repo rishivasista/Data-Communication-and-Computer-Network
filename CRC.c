@@ -17,7 +17,7 @@ const char* mod2div(char msg[], char div[], int msglen, int divlen)
 {
     int i, j;
     static char rem[50], temp[50];
-    char *final_rem;
+    const char *final_rem;
     for(i=0;i<divlen;i++)
     rem[i] = msg[i];
 
@@ -47,7 +47,7 @@ const char* mod2div(char msg[], char div[], int msglen, int divlen)
 
 const char* CRC(char msg[], char div[])
 {
-    char *checksum, *rem;
+    const char *checksum, *rem;
     int msglen, divlen, i;
     msglen = strlen(msg);
     divlen = strlen(div);
@@ -60,7 +60,7 @@ const char* CRC(char msg[], char div[])
 int main()
 {
     static char msg[50], div[50];
-    char *checksum;
+    const char *checksum;
     printf("Enter a message\n");
     scanf("%s", msg);
     printf("Enter Divisor\n");

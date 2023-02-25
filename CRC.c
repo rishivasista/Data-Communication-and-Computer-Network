@@ -16,7 +16,8 @@ char xor(char a, char b)
 const char* mod2div(char msg[], char div[], int msglen, int divlen)
 {
     int i, j;
-    static rem[50], temp[50];
+    static char rem[50], temp[50];
+    char *final_rem;
     for(i=0;i<divlen;i++)
     rem[i] = msg[i];
 
@@ -40,6 +41,8 @@ const char* mod2div(char msg[], char div[], int msglen, int divlen)
         }
         rem[divlen-1] = msg[j];
     }
+    final_rem = rem;
+    return rem;
 }
 
 int main()

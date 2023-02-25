@@ -1,27 +1,20 @@
 #include<stdio.h>
-#include<math.h>
+#include<string.h>
 
-unsigned int addRedundant(unsigned int p1, unsigned int p2){
-    unsigned int div = p2, temp;
-    int count=0, i;
-    while(div!=0){
-        div/=10;
-        count++;
-    }
-    // Adding redundant zeros to p1 based on the size of p2
-    temp = pow(10, count-1); // Contains value to be multiplied to p1 in order to get redundant zeros
-    p1 *= temp;
-    return p1;
-}
+char xor(char a, char b);
+const char* mod2div(char msg[], char div[], int msglen, int divlen);
+const char* CRC(char msg[], char div[]);
 
-
-
-int main(){
-    unsigned int p1, p2;
-    printf("Enter Message\n");
-    scanf("%u", &p1);
+int main()
+{
+    static char msg[50], div[50];
+    char *checksum;
+    printf("Enter a message\n");
+    scanf("%s", msg);
     printf("Enter Divisor\n");
-    scanf("%u",&p2);
-    p1=addRedundant(p1, p2);
-    printf("%u\n", p1);
+    scanf("%s", div);
+    printf("Original Message %s\n", msg);
+    printf("Divisor : %s\n", div);
+    checksum = CRC(msg, div);
+    printf("Checksum : %s\n", checksum);
 }

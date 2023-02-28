@@ -54,12 +54,13 @@ const char *CRC(char msg[], char div[], int isReceiver)
     divlen = strlen(div);
     rem = mod2div(msg, div, msglen, divlen);
     printf("Rem : %s\n", rem);
-    if(isReceiver)
+    // Code will check for errors if isReceiver is 1.
+    if (isReceiver)
     {
-    if(rem[0] == '0' && rem[1] == '0')
-    printf("Message is correct\n");
-    else
-    printf("Error Detected\n");
+        if (rem[0] == '0' && rem[1] == '0')
+            printf("Message is correct\n");
+        else
+            printf("Error Detected\n");
     }
     strcat(msg, rem);
     checksum = msg;
@@ -77,11 +78,14 @@ int main()
     scanf("%s", div);
     printf("Original Message %s\n", msg);
     printf("Divisor : %s\n", div);
+    // Passing 0 as a sender to skip error checking
     checksum = CRC(msg, div, 0);
+    // Removing '/0' and last two remainder characters attached to string.
     for (i = 0; i <= strlen(checksum) - 3; i++)
         recvd[i] = checksum[i];
     printf("At Receiver side message : %s\n", recvd);
     printf("Divisor : %s\n", div);
+    // Passing 1 as a receiver to check for errors.
     checksum = CRC(recvd, div, 1);
     printf("Received Checksum : %s\n", checksum);
 }

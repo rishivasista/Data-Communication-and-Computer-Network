@@ -45,16 +45,16 @@ char xor (char a, char b) {
     final_rem = rem;
     return rem;
 }
-
-const char *CRC(char msg[], char div[], int isReceiver)
+const char* CRC(char msg[], char div[], int isReceiver)
 {
     const char *checksum, *rem;
-    int msglen, divlen, i;
-    msglen = strlen(msg);
+    int msglen, divlen, i, tempdivlen;
     divlen = strlen(div);
+    tempdivlen = divlen - 1;
+    for(i=0;i<tempdivlen;i++)
+    strcat(msg, "0");
+    msglen = strlen(msg);
     rem = mod2div(msg, div, msglen, divlen);
-    printf("Rem : %s\n", rem);
-    // Code will check for errors if isReceiver is 1.
     if (isReceiver)
     {
         if (rem[0] == '0' && rem[1] == '0')
@@ -66,6 +66,7 @@ const char *CRC(char msg[], char div[], int isReceiver)
     checksum = msg;
     return checksum;
 }
+
 
 int main()
 {
@@ -87,5 +88,5 @@ int main()
     printf("Divisor : %s\n", div);
     // Passing 1 as a receiver to check for errors.
     checksum = CRC(recvd, div, 1);
-    printf("Received Checksum : %s\n", checksum);
+    // printf("Received Checksum : %s\n", checksum);
 }

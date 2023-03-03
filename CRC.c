@@ -81,7 +81,7 @@ int main()
     // Passing 0 as a sender to skip error checking
     checksum = CRC(msg, div, 0);
     // Removing '/0' and last two remainder characters attached to string.
-    for (i = 0; i <= strlen(checksum) - 3; i++)
+    for (i = 0; i <= strlen(checksum) - 1; i++)
         recvd[i] = checksum[i];
     printf("At Receiver side message : %s\n", recvd);
     printf("Divisor : %s\n", div);

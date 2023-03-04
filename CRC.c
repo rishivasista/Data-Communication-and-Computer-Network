@@ -88,5 +88,5 @@ int main()
     printf("Divisor : %s\n", div);
     // Passing 1 as a receiver to check for errors.
     checksum = CRC(recvd, div, 1);
-    // printf("Received Checksum : %s\n", checksum);
+    
 }

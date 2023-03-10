@@ -3,7 +3,7 @@
 
 char xor (char a, char b);
 const char *mod2div(char msg[], char div[], int msglen, int divlen);
-const char *CRC(char msg[], char div[], int isReceiver);
+const char *CRC(char msg[], char div[]);
 
 char xor (char a, char b) {
     if (a == b)
@@ -45,28 +45,35 @@ char xor (char a, char b) {
     final_rem = rem;
     return rem;
 }
-const char* CRC(char msg[], char div[], int isReceiver)
+const char *CRC(char msg[], char div[])
 {
     const char *checksum, *rem;
     int msglen, divlen, i, tempdivlen;
+    
     divlen = strlen(div);
     tempdivlen = divlen - 1;
-    for(i=0;i<tempdivlen;i++)
-    strcat(msg, "0");
+    for (i = 0; i < tempdivlen; i++)
+        strcat(msg, "0");
+    
     msglen = strlen(msg);
     rem = mod2div(msg, div, msglen, divlen);
-    if (isReceiver)
-    {
-        if (rem[0] == '0' && rem[1] == '0')
-            printf("Message is correct\n");
-        else
-            printf("Error Detected\n");
-    }
-    strcat(msg, rem);
+    printf("Checksum : %s\n", rem);
+    printf("Transmitted Message %s\n", msg);
+    //Accepting string at receiver side
+    printf("Enter message received at receiver side: \n");
+    scanf("%s", msg);
+    strcat(msg, rem); // Overwriting original message.
+    printf("Transmitted Message : %s\n", msg);
+    rem = mod2div(msg, div, msglen, divlen);
+    printf("Checksum : %s\n", rem);
+    if (rem[0] == '0' && rem[1] == '0')
+        printf("Message is correct\n");
+    else
+        printf("Error Detected\n");
+    
     checksum = msg;
     return checksum;
 }
-
 
 int main()
 {
@@ -77,16 +84,6 @@ int main()
     scanf("%s", msg);
     printf("Enter Divisor\n");
     scanf("%s", div);
-    printf("Original Message %s\n", msg);
-    printf("Divisor : %s\n", div);
     // Passing 0 as a sender to skip error checking
-    checksum = CRC(msg, div, 0);
-    // Removing '/0' and last two remainder characters attached to string.
-    for (i = 0; i <= strlen(checksum) - 1; i++)
-        recvd[i] = checksum[i];
-    printf("At Receiver side message : %s\n", recvd);
-    printf("Divisor : %s\n", div);
-    // Passing 1 as a receiver to check for errors.
-    checksum = CRC(recvd, div, 1);
-    
+    checksum = CRC(msg, div);
 }
